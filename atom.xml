@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://wangxiaolong100.github.io/blog/</id>
+    <id>https://wangxiaolong100.github.io</id>
     <title>王小龙的博客</title>
-    <updated>2019-06-01T04:55:19.876Z</updated>
+    <updated>2019-06-01T05:19:44.601Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://wangxiaolong100.github.io/blog/"/>
-    <link rel="self" href="https://wangxiaolong100.github.io/blog//atom.xml"/>
+    <link rel="alternate" href="https://wangxiaolong100.github.io"/>
+    <link rel="self" href="https://wangxiaolong100.github.io/atom.xml"/>
     <subtitle>技术精于折腾</subtitle>
-    <logo>https://wangxiaolong100.github.io/blog//images/avatar.png</logo>
-    <icon>https://wangxiaolong100.github.io/blog//favicon.ico</icon>
+    <logo>https://wangxiaolong100.github.io/images/avatar.png</logo>
+    <icon>https://wangxiaolong100.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 王小龙的博客</rights>
     <entry>
         <title type="html"><![CDATA[测试]]></title>
-        <id>https://wangxiaolong100.github.io/blog//post/ce-shi</id>
-        <link href="https://wangxiaolong100.github.io/blog//post/ce-shi">
+        <id>https://wangxiaolong100.github.io/post/ce-shi</id>
+        <link href="https://wangxiaolong100.github.io/post/ce-shi">
         </link>
         <updated>2019-06-01T04:45:58.000Z</updated>
         <content type="html"><![CDATA[<p>哈哈</p>
@@ -21,8 +21,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[自动部署文章测试]]></title>
-        <id>https://wangxiaolong100.github.io/blog//post/自动部署文章测试</id>
-        <link href="https://wangxiaolong100.github.io/blog//post/自动部署文章测试">
+        <id>https://wangxiaolong100.github.io/post/自动部署文章测试</id>
+        <link href="https://wangxiaolong100.github.io/post/自动部署文章测试">
         </link>
         <updated>2018-05-01T05:56:42.000Z</updated>
         <content type="html"><![CDATA[<p>测试github webhook自动部署</p>
@@ -30,8 +30,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Cordova镭射二维码扫描插件开发遇到的坑]]></title>
-        <id>https://wangxiaolong100.github.io/blog//post/Cordova镭射二维码扫描插件开发遇到的坑</id>
-        <link href="https://wangxiaolong100.github.io/blog//post/Cordova镭射二维码扫描插件开发遇到的坑">
+        <id>https://wangxiaolong100.github.io/post/Cordova镭射二维码扫描插件开发遇到的坑</id>
+        <link href="https://wangxiaolong100.github.io/post/Cordova镭射二维码扫描插件开发遇到的坑">
         </link>
         <updated>2018-01-02T01:31:41.000Z</updated>
         <content type="html"><![CDATA[<p>最近在做一个Android系统的盘点机，使用了Cordova，主要是为了学习一门新技术，做常规的Cordova开发并不难，之前也做过一个Hello World项目。和普通的web项目没有太大的区别。这次由于涉及到硬件驱动，所以比较细致的看了Cordova的Plugin这块。但是在实际操作中还是遇到了不少坑，这里记录一下。</p>
@@ -58,8 +58,8 @@ scanResultCallbackContext.sendPluginResult(result);
     </entry>
     <entry>
         <title type="html"><![CDATA[Composer更新依赖版本并保存]]></title>
-        <id>https://wangxiaolong100.github.io/blog//post/composer更新依赖版本并保存</id>
-        <link href="https://wangxiaolong100.github.io/blog//post/composer更新依赖版本并保存">
+        <id>https://wangxiaolong100.github.io/post/composer更新依赖版本并保存</id>
+        <link href="https://wangxiaolong100.github.io/post/composer更新依赖版本并保存">
         </link>
         <updated>2017-11-29T19:00:36.000Z</updated>
         <content type="html"><![CDATA[<p>PHP项目有一个数据库包更新了，添加了我需要的功能，有必要在之后的版本中也使用这个版本，因此需要将这个依赖保存到composer.json中。</p>
@@ -71,8 +71,8 @@ scanResultCallbackContext.sendPluginResult(result);
     </entry>
     <entry>
         <title type="html"><![CDATA[Mysql5.7.14 Key Too Long]]></title>
-        <id>https://wangxiaolong100.github.io/blog//post/Mysql5.7.14 key too long</id>
-        <link href="https://wangxiaolong100.github.io/blog//post/Mysql5.7.14 key too long">
+        <id>https://wangxiaolong100.github.io/post/Mysql5.7.14 key too long</id>
+        <link href="https://wangxiaolong100.github.io/post/Mysql5.7.14 key too long">
         </link>
         <updated>2017-11-09T01:30:55.000Z</updated>
         <content type="html"><![CDATA[<p>今天在新开一个Laravel项目的时候，在进行数据库migrate的时候报出了如下错误：</p>
@@ -102,8 +102,8 @@ SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too lo
     </entry>
     <entry>
         <title type="html"><![CDATA[解决Laravel上SSL错误]]></title>
-        <id>https://wangxiaolong100.github.io/blog//post/解决Laravel上SSL错误</id>
-        <link href="https://wangxiaolong100.github.io/blog//post/解决Laravel上SSL错误">
+        <id>https://wangxiaolong100.github.io/post/解决Laravel上SSL错误</id>
+        <link href="https://wangxiaolong100.github.io/post/解决Laravel上SSL错误">
         </link>
         <updated>2017-09-07T19:03:42.000Z</updated>
         <content type="html"><![CDATA[<p>由于之前一直使用的是XAMPP集成环境，也遇到过Laravel项目SSL证书错误的问题，但是通过下载证书文件并修改php.ini文件很容易就搞定了。而这次部署使用了WAMPServer集成环境，原因是它有64位版本。</p>
@@ -113,8 +113,8 @@ SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too lo
     </entry>
     <entry>
         <title type="html"><![CDATA[CentOS部署Laravel项目遇到的坑]]></title>
-        <id>https://wangxiaolong100.github.io/blog//post/CentOS部署Laravel项目遇到的坑</id>
-        <link href="https://wangxiaolong100.github.io/blog//post/CentOS部署Laravel项目遇到的坑">
+        <id>https://wangxiaolong100.github.io/post/CentOS部署Laravel项目遇到的坑</id>
+        <link href="https://wangxiaolong100.github.io/post/CentOS部署Laravel项目遇到的坑">
         </link>
         <updated>2017-09-07T19:02:58.000Z</updated>
         <content type="html"><![CDATA[<p>今天在CentOS上部署一个Laravel项目，在开发的时候用到了npm，gulp以及bower这些自动化的工具，
