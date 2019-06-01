@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>测试 | Gridea</title>
+<title>Cordova镭射二维码扫描插件开发遇到的坑 | Gridea</title>
 <link rel="shortcut icon" href="https://wangxiaolong100.github.io/blog//favicon.ico?v=1559364657132">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
@@ -74,17 +74,36 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              测试
+              Cordova镭射二维码扫描插件开发遇到的坑
             </h2>
             <div class="post-info">
               <time class="post-time">
-                · 2019-06-01 ·
+                · 2018-01-02 ·
               </time>
               
             </div>
             
             <div class="post-content">
-              <p>哈哈</p>
+              <p>最近在做一个Android系统的盘点机，使用了Cordova，主要是为了学习一门新技术，做常规的Cordova开发并不难，之前也做过一个Hello World项目。和普通的web项目没有太大的区别。这次由于涉及到硬件驱动，所以比较细致的看了Cordova的Plugin这块。但是在实际操作中还是遇到了不少坑，这里记录一下。</p>
+<p>首先，就是驱动这块给的只有.so的共享库，而网上的问题多集中在怎么加载.jar库，这部分的资源比较少。在手册中加载库使用的是&lt;lib-file&gt;，并且手册也只说加载.jar库，试了一次，不行，再查手册也就这个标签用于加载库，再看选项，还有个<strong>arch</strong>选项，加上</p>
+<pre><code>arch=&quot;device&quot;
+</code></pre>
+<p>成功加载。</p>
+<p>第二，镭射扫码在安卓端的实现是通过回调实现的，即扫描结果并不是直接返回的，而到了JS端就需要处理这个异步过程了，而手册也只介绍了同步的情况。Google了一圈以后大致就是先返回没有结果，并保持连接：</p>
+<pre><code class="language-java">PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+pluginResult.setKeepCallback(true);
+callbackContext.sendPluginResult(pluginResult);
+</code></pre>
+<p>然后在扫描完成的回调中返回扫描结果：</p>
+<pre><code class="language-java">PluginResult result = new PluginResult(PluginResult.Status.OK, code.trim());
+result.setKeepCallback(false);
+scanResultCallbackContext.sendPluginResult(result);
+</code></pre>
+<p>这里的关键就是返回NO_RESULT并且保持连接，搞定。</p>
+<p>第三，就是在JS部分，老提示我定义的组件对象未定义，原因在打包vue时候，重写了Cordova的index.html。而里面有个重要的cordova.js被删除，在编辑完后加上</p>
+<pre><code class="language-javascript">&lt;script src=&quot;cordova.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>搞定。</p>
 
             </div>
           </article>
@@ -93,9 +112,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://wangxiaolong100.github.io/blog//post/自动部署文章测试">
+            <a href="https://wangxiaolong100.github.io/blog//post/composer更新依赖版本并保存">
               <h3 class="post-title">
-                自动部署文章测试
+                Composer更新依赖版本并保存
               </h3>
             </a>
           </div>

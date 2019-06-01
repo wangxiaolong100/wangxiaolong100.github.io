@@ -1,9 +1,9 @@
 <html>
   <head>
-  <meta charset="utf-8" />
+    <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Gridea</title>
+<title>Composer更新依赖版本并保存 | Gridea</title>
 <link rel="shortcut icon" href="https://wangxiaolong100.github.io/blog//favicon.ico?v=1559364657132">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
@@ -71,9 +71,41 @@
 </div>
 
 
-        <div class="tags-container">
-          
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Composer更新依赖版本并保存
+            </h2>
+            <div class="post-info">
+              <time class="post-time">
+                · 2017-11-30 ·
+              </time>
+              
+            </div>
+            
+            <div class="post-content">
+              <p>PHP项目有一个数据库包更新了，添加了我需要的功能，有必要在之后的版本中也使用这个版本，因此需要将这个依赖保存到composer.json中。</p>
+<p>在查看了composer的官方文档之后得知使用<code>update</code>命令可以达到，在使用了之后，确实是将包升级了，但是更新的是composer.lock文件，composer.json还是之前的版本。再文档中也没有找到能升级这个文件的命令，之后尝试</p>
+<pre><code>composer require package/name
+</code></pre>
+<p>搞定。</p>
+
+            </div>
+          </article>
         </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://wangxiaolong100.github.io/blog//post/Mysql5.7.14 key too long">
+              <h3 class="post-title">
+                Mysql5.7.14 Key Too Long
+              </h3>
+            </a>
+          </div>
+        
+
+        
 
         <div class="site-footer">
   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 

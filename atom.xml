@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wangxiaolong100.github.io/blog/</id>
     <title>Gridea</title>
-    <updated>2019-06-01T04:49:42.507Z</updated>
+    <updated>2019-06-01T04:50:59.711Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wangxiaolong100.github.io/blog/"/>
     <link rel="self" href="https://wangxiaolong100.github.io/blog//atom.xml"/>
@@ -17,6 +17,131 @@
         </link>
         <updated>2019-06-01T04:45:58.000Z</updated>
         <content type="html"><![CDATA[<p>哈哈</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[自动部署文章测试]]></title>
+        <id>https://wangxiaolong100.github.io/blog//post/自动部署文章测试</id>
+        <link href="https://wangxiaolong100.github.io/blog//post/自动部署文章测试">
+        </link>
+        <updated>2018-05-01T05:56:42.000Z</updated>
+        <content type="html"><![CDATA[<p>测试github webhook自动部署</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Cordova镭射二维码扫描插件开发遇到的坑]]></title>
+        <id>https://wangxiaolong100.github.io/blog//post/Cordova镭射二维码扫描插件开发遇到的坑</id>
+        <link href="https://wangxiaolong100.github.io/blog//post/Cordova镭射二维码扫描插件开发遇到的坑">
+        </link>
+        <updated>2018-01-02T01:31:41.000Z</updated>
+        <content type="html"><![CDATA[<p>最近在做一个Android系统的盘点机，使用了Cordova，主要是为了学习一门新技术，做常规的Cordova开发并不难，之前也做过一个Hello World项目。和普通的web项目没有太大的区别。这次由于涉及到硬件驱动，所以比较细致的看了Cordova的Plugin这块。但是在实际操作中还是遇到了不少坑，这里记录一下。</p>
+<p>首先，就是驱动这块给的只有.so的共享库，而网上的问题多集中在怎么加载.jar库，这部分的资源比较少。在手册中加载库使用的是&lt;lib-file&gt;，并且手册也只说加载.jar库，试了一次，不行，再查手册也就这个标签用于加载库，再看选项，还有个<strong>arch</strong>选项，加上</p>
+<pre><code>arch=&quot;device&quot;
+</code></pre>
+<p>成功加载。</p>
+<p>第二，镭射扫码在安卓端的实现是通过回调实现的，即扫描结果并不是直接返回的，而到了JS端就需要处理这个异步过程了，而手册也只介绍了同步的情况。Google了一圈以后大致就是先返回没有结果，并保持连接：</p>
+<pre><code class="language-java">PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+pluginResult.setKeepCallback(true);
+callbackContext.sendPluginResult(pluginResult);
+</code></pre>
+<p>然后在扫描完成的回调中返回扫描结果：</p>
+<pre><code class="language-java">PluginResult result = new PluginResult(PluginResult.Status.OK, code.trim());
+result.setKeepCallback(false);
+scanResultCallbackContext.sendPluginResult(result);
+</code></pre>
+<p>这里的关键就是返回NO_RESULT并且保持连接，搞定。</p>
+<p>第三，就是在JS部分，老提示我定义的组件对象未定义，原因在打包vue时候，重写了Cordova的index.html。而里面有个重要的cordova.js被删除，在编辑完后加上</p>
+<pre><code class="language-javascript">&lt;script src=&quot;cordova.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>搞定。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Composer更新依赖版本并保存]]></title>
+        <id>https://wangxiaolong100.github.io/blog//post/composer更新依赖版本并保存</id>
+        <link href="https://wangxiaolong100.github.io/blog//post/composer更新依赖版本并保存">
+        </link>
+        <updated>2017-11-29T19:00:36.000Z</updated>
+        <content type="html"><![CDATA[<p>PHP项目有一个数据库包更新了，添加了我需要的功能，有必要在之后的版本中也使用这个版本，因此需要将这个依赖保存到composer.json中。</p>
+<p>在查看了composer的官方文档之后得知使用<code>update</code>命令可以达到，在使用了之后，确实是将包升级了，但是更新的是composer.lock文件，composer.json还是之前的版本。再文档中也没有找到能升级这个文件的命令，之后尝试</p>
+<pre><code>composer require package/name
+</code></pre>
+<p>搞定。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mysql5.7.14 Key Too Long]]></title>
+        <id>https://wangxiaolong100.github.io/blog//post/Mysql5.7.14 key too long</id>
+        <link href="https://wangxiaolong100.github.io/blog//post/Mysql5.7.14 key too long">
+        </link>
+        <updated>2017-11-09T01:30:55.000Z</updated>
+        <content type="html"><![CDATA[<p>今天在新开一个Laravel项目的时候，在进行数据库migrate的时候报出了如下错误：</p>
+<blockquote>
+<p>[Illuminate\Database\QueryException]
+SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes (SQL: alter table users add unique users_email_unique(email))</p>
+</blockquote>
+<blockquote>
+<p>[PDOException]
+SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes</p>
+</blockquote>
+<p>这个错误在之前就遇到过，是因为Laravel 5.4为了支持emoji而将数据库的字符集的字符集修改为了utf8mb4，但是这个错误通常是出现在MySQL 5.7.7之前的版本，而我的数据库版本是5.7.14，并且我在创建数据库时专门选择了utf8mb4的字符集。</p>
+<p>遂搜索解决办法，遇到一个类似问题，他提问后自己解决了，而解决的方法就是将表的存储引擎设置为InnoDB，看到这里我就检查了一下我的数据表的存储引擎。果然不是InnoDB，但是即使修改了也不能解决，因为这些数据表是由程序自动创建的，所以只能是在创建前就设置了InnoDB，那就只能是设置默认的存储引擎了。继而搜索MySQL设置默认引擎的方法。首先，查看数据库的当前设置：</p>
+<pre><code class="language-sql">SELECT @@default_storage_engine
+</code></pre>
+<p>我的为</p>
+<pre><code>MyISAM
+</code></pre>
+<p>而设置方式有两种，一种为当前会话的直接执行查询即可：</p>
+<pre><code>SET default_storage_engine=MYISAM;
+</code></pre>
+<p>另一种则为永久的，在my.ini添加下面的配置即可：</p>
+<pre><code>default_storage_engine=innodb
+</code></pre>
+<p>在MySQL官方手册可以看到在MySQL 5.5.5之前的版本中默认的存储引擎是MyISAM，之后为InnoDB，估计我这是wamp集成环境的原因而导致不符合这个说法，因此多次遭遇此问题。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解决Laravel上SSL错误]]></title>
+        <id>https://wangxiaolong100.github.io/blog//post/解决Laravel上SSL错误</id>
+        <link href="https://wangxiaolong100.github.io/blog//post/解决Laravel上SSL错误">
+        </link>
+        <updated>2017-09-07T19:03:42.000Z</updated>
+        <content type="html"><![CDATA[<p>由于之前一直使用的是XAMPP集成环境，也遇到过Laravel项目SSL证书错误的问题，但是通过下载证书文件并修改php.ini文件很容易就搞定了。而这次部署使用了WAMPServer集成环境，原因是它有64位版本。</p>
+<p>没想到在SSL这里也坑了不少时间，这个问题很常见，在stackoverflow以及laracasts都找到了许多答案就是从<a href="http://curl.haxx.se/ca/cacert.pem">这里</a>下载好证书，然后放到一个目录，然后在php.ini中将curl.cainfo配置项指向这个文件即可。</p>
+<p>这通常确实是正确的解决方式，但是在WAMP中由于可是切换PHP的版本，所以他们将php.ini放在了Apache的bin目录下，这就导致了我修改PHP文件夹中的php.ini并没有效果。所以解决方式就是修改Apache的bin目录下的php.ini配置文件即可。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CentOS部署Laravel项目遇到的坑]]></title>
+        <id>https://wangxiaolong100.github.io/blog//post/CentOS部署Laravel项目遇到的坑</id>
+        <link href="https://wangxiaolong100.github.io/blog//post/CentOS部署Laravel项目遇到的坑">
+        </link>
+        <updated>2017-09-07T19:02:58.000Z</updated>
+        <content type="html"><![CDATA[<p>今天在CentOS上部署一个Laravel项目，在开发的时候用到了npm，gulp以及bower这些自动化的工具，
+所以在安装过程中会遇到各种奇怪的问题，现记录在此，以免重蹈覆辙。</p>
+<h2 id="1npm版本与开发时的版本不对应">1.NPM版本与开发时的版本不对应</h2>
+<p>在开发机上使用的NPM是V3版本的，而在CentOS上安装Node.js之后，默认的版本是V2的，这两个版本在
+设计方式上有比较大的区别，所以导致了在NPM不能正确地安装依赖。升级到对应的大版本之后得以解决:</p>
+<pre><code class="language-bash">$ npm install npm -g
+</code></pre>
+<p>最好在升级后删除库的安装目录并清理缓存，执行如下命令：</p>
+<pre><code>$ rm -rf node_modules
+$ npm cache clean
+</code></pre>
+<h2 id="2npm-install在进行过程中无故终止并且不报错">2.npm install在进行过程中无故终止，并且不报错</h2>
+<p>在npm install执行过后，node_modules目录下没有被安装任何库，在我这引起这个问题的原因是内存
+不足。我购买的VPS的内存大小是768MB，可能由于依赖的库比较多的原因，在执行一段时间后会将内存占
+满导致执行终止。解决方法就是创建swap空间：</p>
+<pre><code>$ sudo dd if=/dev/zero of=/swapfile bs=1024 count=512k
+$ sudo mkswap /swapfile
+$ sudo swapon /swapfile
+</code></pre>
+<p>在执行完上面的指令之后，交换空间就创建并启用了，执行下面的命令可以证实：</p>
+<pre><code>$  swapon -s
+Filename                                Type            Size    Used    Priority
+/swapfile                               file            524284  115248  -1
+</code></pre>
+<p>再次执行npm install即可正常安装！</p>
 ]]></content>
     </entry>
 </feed>

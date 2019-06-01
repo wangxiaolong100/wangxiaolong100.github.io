@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>测试 | Gridea</title>
+<title>Mysql5.7.14 Key Too Long | Gridea</title>
 <link rel="shortcut icon" href="https://wangxiaolong100.github.io/blog//favicon.ico?v=1559364657132">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
@@ -74,17 +74,39 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              测试
+              Mysql5.7.14 Key Too Long
             </h2>
             <div class="post-info">
               <time class="post-time">
-                · 2019-06-01 ·
+                · 2017-11-09 ·
               </time>
               
             </div>
             
             <div class="post-content">
-              <p>哈哈</p>
+              <p>今天在新开一个Laravel项目的时候，在进行数据库migrate的时候报出了如下错误：</p>
+<blockquote>
+<p>[Illuminate\Database\QueryException]
+SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes (SQL: alter table users add unique users_email_unique(email))</p>
+</blockquote>
+<blockquote>
+<p>[PDOException]
+SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes</p>
+</blockquote>
+<p>这个错误在之前就遇到过，是因为Laravel 5.4为了支持emoji而将数据库的字符集的字符集修改为了utf8mb4，但是这个错误通常是出现在MySQL 5.7.7之前的版本，而我的数据库版本是5.7.14，并且我在创建数据库时专门选择了utf8mb4的字符集。</p>
+<p>遂搜索解决办法，遇到一个类似问题，他提问后自己解决了，而解决的方法就是将表的存储引擎设置为InnoDB，看到这里我就检查了一下我的数据表的存储引擎。果然不是InnoDB，但是即使修改了也不能解决，因为这些数据表是由程序自动创建的，所以只能是在创建前就设置了InnoDB，那就只能是设置默认的存储引擎了。继而搜索MySQL设置默认引擎的方法。首先，查看数据库的当前设置：</p>
+<pre><code class="language-sql">SELECT @@default_storage_engine
+</code></pre>
+<p>我的为</p>
+<pre><code>MyISAM
+</code></pre>
+<p>而设置方式有两种，一种为当前会话的直接执行查询即可：</p>
+<pre><code>SET default_storage_engine=MYISAM;
+</code></pre>
+<p>另一种则为永久的，在my.ini添加下面的配置即可：</p>
+<pre><code>default_storage_engine=innodb
+</code></pre>
+<p>在MySQL官方手册可以看到在MySQL 5.5.5之前的版本中默认的存储引擎是MyISAM，之后为InnoDB，估计我这是wamp集成环境的原因而导致不符合这个说法，因此多次遭遇此问题。</p>
 
             </div>
           </article>
@@ -93,9 +115,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://wangxiaolong100.github.io/blog//post/自动部署文章测试">
+            <a href="https://wangxiaolong100.github.io/blog//post/解决Laravel上SSL错误">
               <h3 class="post-title">
-                自动部署文章测试
+                解决Laravel上SSL错误
               </h3>
             </a>
           </div>

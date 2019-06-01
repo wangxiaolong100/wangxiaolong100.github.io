@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>测试 | Gridea</title>
+<title>CentOS部署Laravel项目遇到的坑 | Gridea</title>
 <link rel="shortcut icon" href="https://wangxiaolong100.github.io/blog//favicon.ico?v=1559364657132">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
@@ -74,31 +74,46 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              测试
+              CentOS部署Laravel项目遇到的坑
             </h2>
             <div class="post-info">
               <time class="post-time">
-                · 2019-06-01 ·
+                · 2017-09-08 ·
               </time>
               
             </div>
             
             <div class="post-content">
-              <p>哈哈</p>
+              <p>今天在CentOS上部署一个Laravel项目，在开发的时候用到了npm，gulp以及bower这些自动化的工具，
+所以在安装过程中会遇到各种奇怪的问题，现记录在此，以免重蹈覆辙。</p>
+<h2 id="1npm版本与开发时的版本不对应">1.NPM版本与开发时的版本不对应</h2>
+<p>在开发机上使用的NPM是V3版本的，而在CentOS上安装Node.js之后，默认的版本是V2的，这两个版本在
+设计方式上有比较大的区别，所以导致了在NPM不能正确地安装依赖。升级到对应的大版本之后得以解决:</p>
+<pre><code class="language-bash">$ npm install npm -g
+</code></pre>
+<p>最好在升级后删除库的安装目录并清理缓存，执行如下命令：</p>
+<pre><code>$ rm -rf node_modules
+$ npm cache clean
+</code></pre>
+<h2 id="2npm-install在进行过程中无故终止并且不报错">2.npm install在进行过程中无故终止，并且不报错</h2>
+<p>在npm install执行过后，node_modules目录下没有被安装任何库，在我这引起这个问题的原因是内存
+不足。我购买的VPS的内存大小是768MB，可能由于依赖的库比较多的原因，在执行一段时间后会将内存占
+满导致执行终止。解决方法就是创建swap空间：</p>
+<pre><code>$ sudo dd if=/dev/zero of=/swapfile bs=1024 count=512k
+$ sudo mkswap /swapfile
+$ sudo swapon /swapfile
+</code></pre>
+<p>在执行完上面的指令之后，交换空间就创建并启用了，执行下面的命令可以证实：</p>
+<pre><code>$  swapon -s
+Filename                                Type            Size    Used    Priority
+/swapfile                               file            524284  115248  -1
+</code></pre>
+<p>再次执行npm install即可正常安装！</p>
 
             </div>
           </article>
         </div>
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://wangxiaolong100.github.io/blog//post/自动部署文章测试">
-              <h3 class="post-title">
-                自动部署文章测试
-              </h3>
-            </a>
-          </div>
         
 
         

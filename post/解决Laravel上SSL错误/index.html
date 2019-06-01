@@ -1,9 +1,9 @@
 <html>
   <head>
-  <meta charset="utf-8" />
+    <meta charset="utf-8" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Gridea</title>
+<title>解决Laravel上SSL错误 | Gridea</title>
 <link rel="shortcut icon" href="https://wangxiaolong100.github.io/blog//favicon.ico?v=1559364657132">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
@@ -71,9 +71,39 @@
 </div>
 
 
-        <div class="tags-container">
-          
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              解决Laravel上SSL错误
+            </h2>
+            <div class="post-info">
+              <time class="post-time">
+                · 2017-09-08 ·
+              </time>
+              
+            </div>
+            
+            <div class="post-content">
+              <p>由于之前一直使用的是XAMPP集成环境，也遇到过Laravel项目SSL证书错误的问题，但是通过下载证书文件并修改php.ini文件很容易就搞定了。而这次部署使用了WAMPServer集成环境，原因是它有64位版本。</p>
+<p>没想到在SSL这里也坑了不少时间，这个问题很常见，在stackoverflow以及laracasts都找到了许多答案就是从<a href="http://curl.haxx.se/ca/cacert.pem">这里</a>下载好证书，然后放到一个目录，然后在php.ini中将curl.cainfo配置项指向这个文件即可。</p>
+<p>这通常确实是正确的解决方式，但是在WAMP中由于可是切换PHP的版本，所以他们将php.ini放在了Apache的bin目录下，这就导致了我修改PHP文件夹中的php.ini并没有效果。所以解决方式就是修改Apache的bin目录下的php.ini配置文件即可。</p>
+
+            </div>
+          </article>
         </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://wangxiaolong100.github.io/blog//post/CentOS部署Laravel项目遇到的坑">
+              <h3 class="post-title">
+                CentOS部署Laravel项目遇到的坑
+              </h3>
+            </a>
+          </div>
+        
+
+        
 
         <div class="site-footer">
   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
